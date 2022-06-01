@@ -1,0 +1,43 @@
+{
+  "name": "zk-app",
+  "version": "1.0.0",
+  "description": "Boilerplate for zkApp",
+  "scripts": {
+    "compile:contracts": "npx hardhat compile --force",
+    "develop": "npx hardhat node",
+    "deploy:localhost": "npx hardhat deploy --tags complete",
+    "test": "npx hardhat test",
+    "compile:circuits": "bash scripts/compile-circuits.sh",
+    "version:fix": "node scripts/bump-solidity",
+    "setup:circom": "bash scripts/setup-circom.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/socathie/zkApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/socathie/zkApp.git/issues"
+  },
+  "homepage": "https://github.com/socathie/zkApp.git#readme",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "chai": "^4.3.6",
+    "circomlib": "^2.0.2",
+    "circomlibjs": "^0.1.1",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.5.4",
+    "hardhat": "^2.8.3",
+    "hardhat-contract-sizer": "^2.4.0",
+    "hardhat-deploy": "^0.10.4",
+    "hardhat-gas-reporter": "^1.0.7",
+    "snarkjs": "^0.4.13",
+    "web3-utils": "^1.7.0"
+  },
+  "dependencies": {
+    "circom_tester": "^0.0.11"
+  }
+}
