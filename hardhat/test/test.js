@@ -8,26 +8,6 @@ const Scalar = require("ffjavascript").Scalar;
 exports.p = Scalar.fromString("21888242871839275222246405745257275088548364400416034343698204186575808495617");
 const Fr = new F1Field(exports.p);
 
-function unstringifyBigInts(o) {
-    if ((typeof(o) == "string") && (/^[0-9]+$/.test(o) ))  {
-        return BigInt(o);
-    } else if ((typeof(o) == "string") && (/^0x[0-9a-fA-F]+$/.test(o) ))  {
-        return BigInt(o);
-    } else if (Array.isArray(o)) {
-        return o.map(unstringifyBigInts);
-    } else if (typeof o == "object") {
-        if (o===null) return null;
-        const res = {};
-        const keys = Object.keys(o);
-        keys.forEach( (k) => {
-            res[k] = unstringifyBigInts(o[k]);
-        });
-        return res;
-    } else {
-        return o;
-    }
-}
-
 describe("Circuit test", function () {
 
     it("Multipler2 test", async () => {
@@ -59,9 +39,8 @@ describe("Verifier Contract", function () {
     it("Should return true for correct proofs", async function () {
 
         const { proof, publicSignals } = await groth16.fullProve({"a":"1","b":"2"}, "circuits/build/circuit_js/circuit.wasm","circuits/build/circuit_final.zkey");
-        const editedPublicSignals = unstringifyBigInts(publicSignals);
-        const editedProof = unstringifyBigInts(proof);
-        const calldata = await groth16.exportSolidityCallData(editedProof, editedPublicSignals);
+
+        const calldata = await groth16.exportSolidityCallData(proof, publicSignals);
     
         const argv = calldata.replace(/["[\]\s]/g, "").split(',').map(x => BigInt(x).toString());
     
