@@ -300,12 +300,13 @@ module.exports = function (webpackEnv) {
       ),
       fallback: {
         "fs": false,
+        "worker_threads": false,
         "zlib": require.resolve("browserify-zlib"),
         "crypto": require.resolve("crypto-browserify"),
         "os": require.resolve("os-browserify/browser"),
         "stream": require.resolve("stream-browserify"),
         "path": require.resolve("path-browserify"),
-        "worker_threads": false
+        "constants": require.resolve("constants-browserify")
       },
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
