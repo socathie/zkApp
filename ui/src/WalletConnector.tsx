@@ -2,7 +2,7 @@ import Fab from '@mui/material/Fab';
 import Backdrop from '@mui/material/Backdrop';
 import { useEffect, useState } from 'react';
 
-const devnetChainId = '0x635ae020'
+const testnetChainId = '0x5'
 
 export default function WalletConnector() {
   const { ethereum } = window;
@@ -49,18 +49,18 @@ export default function WalletConnector() {
     let chainId = await ethereum.request({ method: 'eth_chainId' });
     console.log("Chain ID:", chainId, parseInt(chainId));
 
-    setCorrectChain(chainId === devnetChainId);
+    setCorrectChain(chainId === testnetChainId);
   }
 
   const changeChainId = async () => {
     let chainId = await ethereum.request({ method: 'eth_chainId' });
 
-    if (chainId !== devnetChainId) {
+    if (chainId !== testnetChainId) {
       try {
         await ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{
-            chainId: devnetChainId
+            chainId: testnetChainId
           }], // chainId must be in hexadecimal numbers
         });
         chainId = await ethereum.request({ method: 'eth_chainId' });
@@ -73,15 +73,15 @@ export default function WalletConnector() {
               method: 'wallet_addEthereumChain',
               params: [
                 {
-                  chainId: devnetChainId,
-                  chainName: 'Harmony Devnet',
+                  chainId: testnetChainId,
+                  chainName: 'Goerli',
                   nativeCurrency: {
-                    name: 'ONE',
-                    symbol: 'ONE',
+                    name: 'GoerliETH',
+                    symbol: 'GoerliETH',
                     decimals: 18
                   },
-                  rpcUrls: ['https://api.s0.ps.hmny.io/'],
-                  blockExplorerUrls: ['https://explorer.ps.hmny.io']
+                  rpcUrls: ['https://goerli.infura.io/v3/'],
+                  blockExplorerUrls: ['https://goerli.etherscan.io']
                 },
               ],
             });
@@ -93,7 +93,7 @@ export default function WalletConnector() {
       }
       window.location.reload();
     }
-    setCorrectChain(chainId === devnetChainId);
+    setCorrectChain(chainId === testnetChainId);
   }
 
   const changeAccount = async () => {
